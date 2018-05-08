@@ -41,7 +41,7 @@ game = {
     context.fillText(game.score, canvas.width / 2, canvas.height * 0.9); // The text fills half of the width and .9 of the height 
   },
   
-//telling Java to show the score in the canvas element.
+//telling Java to show the message in the canvas element.
   drawMessage: function() {
     if (game.message !== null) {
       context.fillStyle = '#00F';
@@ -114,7 +114,7 @@ snake = {
       game.stop();
     }
   },
-  
+  //if the snake collides stop the game  
   isCollision: function(x, y) {
     if (x < snake.size / 2 ||
         x > canvas.width ||
@@ -123,11 +123,11 @@ snake = {
         snake.sections.indexOf(x + ',' + y) >= 0) {
       return true;
     }
-  },
+  },//defines the collision 
   
   checkGrowth: function() {
     if (snake.x == food.x && snake.y == food.y) {
-      game.score++;
+      game.score++; //if the snake gets to the same coordinates as the food it adds to the snake and the score
       if (game.score % 5 == 0 && game.fps < 60) {
         game.fps++;
       }
@@ -148,12 +148,12 @@ food = {
   
   set: function() {
     food.size = snake.size;
-    food.x = (Math.ceil(Math.random() * 10) * snake.size * 4) - snake.size / 2;
+    food.x = (Math.ceil(Math.random() * 10) * snake.size * 4) - snake.size / 2;//this randomly spawns the food on the board
     food.y = (Math.ceil(Math.random() * 10) * snake.size * 3) - snake.size / 2;
   },
   
   draw: function() {
-    game.drawBox(food.x, food.y, food.size, food.color);
+    game.drawBox(food.x, food.y, food.size, food.color);//draws a box where the food is calculated to be
   }
   
 };
@@ -166,7 +166,7 @@ var inverseDirection = {
 };
 
 var keys = {
-  up: [38, 75, 87],
+  up: [38, 75, 87],//sets the keys as controls 
   down: [40, 74, 83],
   left: [37, 65, 72],
   right: [39, 68, 76],
@@ -182,7 +182,7 @@ function getKey(value){
   return null;
 }
 
-addEventListener("keydown", function (e) {
+addEventListener("keydown", function (e) {//event listener for the keys 
     var lastKey = getKey(e.keyCode);
     if (['up', 'down', 'left', 'right'].indexOf(lastKey) >= 0
         && lastKey != inverseDirection[snake.direction]) {
@@ -197,7 +197,7 @@ var requestAnimationFrame = window.requestAnimationFrame ||
       window.mozRequestAnimationFrame;
 
 function loop() {
-  if (game.over == false) {
+  if (game.over == false) {//if the game is still going reset the canvas, display the score, allow the snake to move, drop food, adraw the snake, and display the message 
     game.resetCanvas();
     game.drawScore();
     snake.move();
