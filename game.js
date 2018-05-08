@@ -1,7 +1,7 @@
 var canvas = document.getElementById("the-game");
 var context = canvas.getContext("2d");
 var game, snake, food;
-
+//this is to select the canvas element with that id 
 game = {
   
   score: 0,
@@ -17,12 +17,12 @@ game = {
     snake.init();
     food.set();
   },
-  
+  //set the gamestate at the start
   stop: function() {
     game.over = true;
-    game.message = 'GAME OVER - PRESS SPACEBAR';
+    game.message = 'GAME OVER';
   },
-  
+  //telling JS what to do once the game ends 
   drawBox: function(x, y, size, color) {
     context.fillStyle = color;
     context.beginPath();
@@ -33,21 +33,22 @@ game = {
     context.closePath();
     context.fill();
   },
-  
+  //a constructor telling Java to draw a box 
   drawScore: function() {
     context.fillStyle = '#999';
     context.font = (canvas.height) + 'px Impact, sans-serif';
     context.textAlign = 'center';
-    context.fillText(game.score, canvas.width / 2, canvas.height * 0.9);
+    context.fillText(game.score, canvas.width / 2, canvas.height * 0.9); // The text fills half of the width and .9 of the height 
   },
   
+//telling Java to show the score in the canvas element.
   drawMessage: function() {
     if (game.message !== null) {
       context.fillStyle = '#00F';
       context.strokeStyle = '#FFF';
       context.font = (canvas.height / 10) + 'px Impact';
       context.textAlign = 'center';
-      context.fillText(game.message, canvas.width / 2, canvas.height / 2);
+      context.fillText(game.message, canvas.width / 2, canvas.height / 2);//write the game message halfway down the canvas 
       context.strokeText(game.message, canvas.width / 2, canvas.height / 2);
     }
   },
@@ -55,28 +56,28 @@ game = {
   resetCanvas: function() {
     context.clearRect(0, 0, canvas.width, canvas.height);
   }
-  
+  //clear the game space 
 };
 
 snake = {
-  
-  size: canvas.width / 40,
+  //constructor for the snake object
+  size: canvas.width / 40, //the size should be the canvas width divided by 40
   x: null,
   y: null,
   color: '#0F0',
-  direction: 'left',
+  direction: 'left', //the initial direction 
   sections: [],
   
   init: function() {
     snake.sections = [];
     snake.direction = 'left';
-    snake.x = canvas.width / 2 + snake.size / 2;
+    snake.x = canvas.width / 2 + snake.size / 2;//the x coordinate of the snake should initially be half of the box plus half the size of the snek 
     snake.y = canvas.height / 2 + snake.size / 2;
     for (var i = snake.x + (5 * snake.size); i >= snake.x; i -= snake.size) {
       snake.sections.push(i + ',' + snake.y); 
     }
   },
-  
+ 
   move: function() {
     switch (snake.direction) {
       case 'up':
@@ -96,6 +97,7 @@ snake = {
     snake.checkGrowth();
     snake.sections.push(snake.x + ',' + snake.y);
   },
+ //a function defining the movement 
   
   draw: function() {
     for (var i = 0; i < snake.sections.length; i++) {
