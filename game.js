@@ -1,15 +1,15 @@
 var canvas = document.getElementById("the-game");
 var context = canvas.getContext("2d");
 var game, snake, food;
-//this is to select the canvas element with that id 
+//this is to select the canvas element with that id and to create a 2d image along with the variables for the snake, game and food
 game = {
-  
+  //function or a constructor 
   score: 0,
   fps: 8,
   over: false,
   message: null,
   
-  start: function() {
+  start: function() {//the conditions for the start of the game 
     game.over = false;
     game.message = null;
     game.score = 0;
@@ -20,7 +20,7 @@ game = {
   //set the gamestate at the start
   stop: function() {
     game.over = true;
-    game.message = 'GAME OVER';
+    game.message = '';
   },
   //telling JS what to do once the game ends 
   drawBox: function(x, y, size, color) {
@@ -30,7 +30,7 @@ game = {
     context.lineTo(x + (size / 2), y - (size / 2));
     context.lineTo(x + (size / 2), y + (size / 2));
     context.lineTo(x - (size / 2), y + (size / 2));
-    context.closePath();
+    context.closePath(); 
     context.fill();
   },
   //a constructor telling Java to draw a box 
@@ -61,10 +61,10 @@ game = {
 
 snake = {
   //constructor for the snake object
-  size: canvas.width / 40, //the size should be the canvas width divided by 40
+  size: canvas.width / 40, //the size of the snake should be the canvas width divided by 40
   x: null,
   y: null,
-  color: '#0F0',
+  color: '#ffcc99',
   direction: 'left', //the initial direction 
   sections: [],
   
